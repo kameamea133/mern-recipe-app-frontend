@@ -41,6 +41,10 @@ const CreateRecipe = () => {
   
 const onSubmit = async (event) => {
   event.preventDefault();
+  if (!cookies.access_token) {
+    alert('You must be registered to add your recipe');
+    return;
+  }
   try{
       await axios.post('http://localhost:3000/recipes', recipe, {headers: {authorization: cookies.access_token}});
       alert('Recipe Created')

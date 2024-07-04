@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from "axios"
 import {useGetUserID} from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
+import Hero from '../../components/Hero'
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -50,10 +51,11 @@ const isRecipeSaved = (id) => savedRecipes.includes(id)
 
   return (
     <div>
-      <h1>Recipes</h1>
-      <ul>
+    <Hero />
+    <h1>Recipes</h1>
+      <ul className="recipes-grid">
         {recipes.map((recipe) => (
-          <li key={recipe._id}>
+          <li key={recipe._id} className="recipe-card">
             <div>
               <h2>{recipe.name}</h2>
               <button onClick={() => saveRecipe(recipe._id)} disabled={isRecipeSaved(recipe._id)}>
