@@ -50,35 +50,34 @@ const SavedRecipes = () => {
 
   return (
     <div className='savedRecipesPage'>
-      <h1>Saved Recipes</h1>
-      <ul>
-        {savedRecipes.map((recipe) => (
-          <li key={recipe._id}>
-            <div>
+    <h1>Saved Recipes</h1>
+    <ul className='recipes-grid'>
+      {savedRecipes.map((recipe) => (
+        <li key={recipe._id} className='recipe-card'>
+          <div className='recipe-content'>
             <img src={recipe.imageUrl} alt={recipe.name} />
-              <h2>{recipe.name}</h2>
-              <h4>category: {recipe.category}</h4>
-              <MdDelete onClick={() => deleteRecipe(recipe._id)}/>
-
-            </div>
-            <div className="instructions">
-              <p>
-                <span>Ingredients:</span>
-                <ul>
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index}>_{ingredient}</li>
-                  ))}
-                </ul>
-              </p>
-              <p>
-                <span>Instructions:</span> <span dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
-              </p>
-            </div>
-            <p>Cooking Time: {recipe.cookingTime}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+            <h2>{recipe.name}</h2>
+            <h4>Category: {recipe.category}</h4>
+            <MdDelete className='delete-icon' onClick={() => deleteRecipe(recipe._id)} />
+          </div>
+          <div className="instructions">
+            <p>
+              <span>Ingredients:</span>
+              <ul>
+                {recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </p>
+            <p>
+              <span>Instructions:</span> <span dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+            </p>
+          </div>
+          <p>Cooking Time: {recipe.cookingTime}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
   )
 }
 

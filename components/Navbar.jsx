@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import {useCookies} from "react-cookie"
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../reducers/users'
+import { IoMdLogOut } from "react-icons/io";
+
 
 const Navbar = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
@@ -21,7 +23,8 @@ const Navbar = () => {
         </Link>
         
         <Link to="/create-recipe">Create Recipe</Link>
-        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">Saved Recipes</Link><button onClick={logout}>Logout</button></>}
+        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">Saved Recipes</Link><button onClick={logout} className='logout-icon'><IoMdLogOut size={20} className='logout-icon'/>
+</button></>}
        
     </div>
   )

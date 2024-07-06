@@ -54,9 +54,11 @@
     margin: 0;
     width: 100%;
     height: 100px;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    backdrop-filter: blur(3px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     color: white;
     text-decoration: none;
@@ -64,8 +66,9 @@
     top: 0;
     left: 0;
     right: 0;
-    
+    z-index: 1;
   }
+  
   
   a {
     color: white;
@@ -212,9 +215,7 @@
 }
 
 
-.recipe-card:hover {
-  transform: scale(1.05);
-}
+
 
 .recipe-card img {
   width: 100%;
@@ -253,7 +254,9 @@
   transition: background-color 0.3s ease;
 }
 
-
+.recipe-card .button-disabled:hover{
+  background-color: #797171;
+}
 
 
 .recipe-card button:hover {
@@ -291,11 +294,94 @@
   margin-bottom: 70px;
 }
 
-.savedRecipesPage{
-  margin-top: 200px;
 
-  h1{
-    text-align: center;
-    font-size: 3.5em;
+/* savedRecipesPage */
+
+.savedRecipesPage {
+  padding: 20px;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-content {
+  padding: 20px;
+  position: relative
+}
+
+.recipe-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+.recipe-content h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.recipe-content h4 {
+  font-size: 18px;
+  color: #666;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 24px;
+  top: -3px;
+  right: -9px;
+  position: absolute;
+}
+
+.delete-icon:hover {
+  color: #870e12;
+}
+
+.instructions {
+  padding: 20px;
+  text-align: left;
+}
+
+.instructions span {
+  font-weight: bold;
+}
+
+
+/* logout icon */
+.logout-icon{
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logout-icon:hover{
+  background-color: pink;
+  border: none;
+  transform: scale(1.1);
+}
+
+
+@media (max-width: 768px) {
+  .recipes-grid {
+    grid-template-columns: 1fr;
   }
 }
