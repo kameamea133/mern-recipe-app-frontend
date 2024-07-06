@@ -1,12 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from "axios"
 import {useGetUserID} from "../hooks/useGetUserID"
+import { MdDelete } from "react-icons/md";
+import { useDispatch } from 'react-redux'
+import { deleteRecipeFromStore } from "../../reducers/recipes"
+import { useCookies } from "react-cookie";
 
 const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
-  
+  const dispatch = useDispatch();
   const userID = useGetUserID()
-  
+  const [cookies] = useCookies(["access_token"]);
+
+  const deleteRecipe = useCallback(async (recipeID) => {
+    try {
+      await axios.delete(`http://localhost:3000/recipes/${recipeID}`, {
+        data: { userID },
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`
+        }
+      });
+      dispatch(deleteRecipeFromStore(recipeID));
+      setSavedRecipes(prevSavedRecipes => prevSavedRecipes.filter(recipe => recipe._id !== recipeID));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch, userID, cookies.access_token]);
+ 
   useEffect(() => {
     
     const fetchSavedRecipe = async () => {
@@ -20,27 +40,40 @@ const SavedRecipes = () => {
     }
 
     fetchSavedRecipe()
-  }, [userID])
+  }, [userID, deleteRecipe])
 
 
   
-
+ 
 
 
 
   return (
-    <div>
+    <div className='savedRecipesPage'>
       <h1>Saved Recipes</h1>
       <ul>
         {savedRecipes.map((recipe) => (
           <li key={recipe._id}>
             <div>
+            <img src={recipe.imageUrl} alt={recipe.name} />
               <h2>{recipe.name}</h2>
+              <h4>category: {recipe.category}</h4>
+              <MdDelete onClick={() => deleteRecipe(recipe._id)}/>
+
             </div>
             <div className="instructions">
-              <p>{recipe.instructions}</p>
+              <p>
+                <span>Ingredients:</span>
+                <ul>
+                  {recipe.ingredients.map((ingredient, index) => (
+                    <li key={index}>_{ingredient}</li>
+                  ))}
+                </ul>
+              </p>
+              <p>
+                <span>Instructions:</span> <span dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+              </p>
             </div>
-            <img src={recipe.imageUrl} alt={recipe.name} />
             <p>Cooking Time: {recipe.cookingTime}</p>
           </li>
         ))}

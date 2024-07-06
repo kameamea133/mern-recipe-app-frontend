@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import axios from "axios"
 const Register = () => {
     const [username, setUsername] = useState("");
@@ -8,11 +8,13 @@ const Register = () => {
         event.preventDefault();
 
         try{
-            await axios.post("http://localhost:3000/users/register", {
+            const response = await axios.post("http://localhost:3000/users/register", {
                 username,
                 password,
             });
-            alert("Registration completed! Now login!")
+            alert(response.data.message)
+            setUsername("")
+            setPassword("")
         }catch(err) {
             console.error(err)
         }

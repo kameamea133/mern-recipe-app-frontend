@@ -1,27 +1,52 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import axios from "axios"
 import {useCookies} from 'react-cookie'
 import {useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addUserToStore } from '../reducers/users'
+
+
+
  
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    const [, setCookies] = useCookies(["access_token"]);
+   
+    const dispatch = useDispatch()
+    
+    
+    const [_, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
 
+   
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        const response = await axios.post('http://localhost:3000/users/login', {
+        try {
+          const response = await axios.post('http://localhost:3000/users/login', {
             username, 
             password,
-        });
-
-        setCookies("access_token", response.data.token);
-        window.localStorage.setItem("userId", response.data.userID);
-        navigate('/')
-    }
+          });
+    
+          if (response.data.token) {
+            setCookies("access_token", response.data.token);
+            window.localStorage.setItem("userId", response.data.userID);
+    
+            
+            dispatch(addUserToStore({
+              userID: response.data.userID,
+              username: response.data.username
+            }));
+    
+            navigate('/');
+          } else {
+            alert(response.data.message);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
 
   return (
     <div className='auth-container'>

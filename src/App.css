@@ -95,7 +95,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     margin: 20px;
     width: 400px;
-
+    margin-top: 200px;
     
   }
   .create-recipe form {
@@ -195,21 +195,22 @@
 
 .recipes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(4, 500px); 
+  gap: 30px; 
   padding: 0;
-  list-style: none;
-  justify-content: center; /* Centre les éléments horizontalement */
-  align-items: center; /* Centre les éléments verticalement */
+  width: 100%;
+  margin: 0 70px;
 }
 
 .recipe-card {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
+  width: 100%; /* S'assure que les cartes prennent toute la largeur de la colonne */
 }
+
 
 .recipe-card:hover {
   transform: scale(1.05);
@@ -217,17 +218,20 @@
 
 .recipe-card img {
   width: 100%;
-  height: 300px;
+  height: 400px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .recipe-card h2 {
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin: 0.5em 0;
-  padding: 0 1em;
+ 
+  text-decoration: underline;
 }
 
-.recipe-card button {
+
+.recipe-card .button-active {
   background-color: #A10E14;
   color: #fff;
   border: none;
@@ -238,15 +242,60 @@
   transition: background-color 0.3s ease;
 }
 
+.recipe-card .button-disabled {
+  background-color: #797171;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1em;
+  margin: 1em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+
+
+
 .recipe-card button:hover {
   background: #870e12;
 }
 
-.recipe-card .instructions {
-  padding: 0 1em;
+.recipe-card .instructions  p {
+ font-size: 16px;
 }
+
+.recipe-card .instructions  span {
+  font-weight: bold;
+  font-size: 18px;
+ }
 
 .recipe-card p {
   padding: 0 1em;
   margin: 0.5em 0;
+}
+
+
+.homePageContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.titleHomePage{
+  text-align: center;
+  font-size: 4em;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.savedRecipesPage{
+  margin-top: 200px;
+
+  h1{
+    text-align: center;
+    font-size: 3.5em;
+  }
 }

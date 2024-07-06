@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom'
 import {useCookies} from "react-cookie"
-import {useNavigate} from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../reducers/users'
 
 const Navbar = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
-  const navigate = useNavigate()
+  
+  const dispatch = useDispatch()
 
   const logout = () => {
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
-    navigate('/auth')
+    dispatch(logoutUser());
   }
 
   return (
