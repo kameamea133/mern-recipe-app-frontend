@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -22,6 +21,7 @@ const Hero = () => {
         },
       }}
     className='heroContainer'>
+    <div className="overlay"/>
         <img src="https://images.pexels.com/photos/1435894/pexels-photo-1435894.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"/>
         <div className="text-overlay">
     <motion.h1

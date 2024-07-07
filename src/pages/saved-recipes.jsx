@@ -5,9 +5,13 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch } from 'react-redux'
 import { deleteRecipeFromStore } from "../../reducers/recipes"
 import { useCookies } from "react-cookie";
+import RecipeModal from '../../components/RecipeModal';
 
 const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
+
+  
+
   const dispatch = useDispatch();
   const userID = useGetUserID()
   const [cookies] = useCookies(["access_token"]);
@@ -51,14 +55,14 @@ const SavedRecipes = () => {
   return (
     <div className='savedRecipesPage'>
     <h1>Saved Recipes</h1>
-    <ul className='recipes-grid'>
+    <ul className='savedRecipes-grid'>
       {savedRecipes.map((recipe) => (
-        <li key={recipe._id} className='recipe-card'>
-          <div className='recipe-content'>
+        <li key={recipe._id} className='savedRecipes-card'>
+          <div className='savedRecipes-content'>
             <img src={recipe.imageUrl} alt={recipe.name} />
             <h2>{recipe.name}</h2>
             <h4>Category: {recipe.category}</h4>
-            <MdDelete className='delete-icon' onClick={() => deleteRecipe(recipe._id)} />
+            <MdDelete className='delete-icon' onClick={(e) => { e.stopPropagation(); deleteRecipe(recipe._id); }}  size={30}/>
           </div>
           <div className="instructions">
             <p>
@@ -74,6 +78,7 @@ const SavedRecipes = () => {
             </p>
           </div>
           <p>Cooking Time: {recipe.cookingTime}</p>
+          
         </li>
       ))}
     </ul>

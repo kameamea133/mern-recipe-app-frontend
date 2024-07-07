@@ -18,12 +18,12 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-        <Link to="/" className='logo'>
+        <Link to="/">
           <img src="/logoRecipe.png" alt="logo" className='logo'/>
         </Link>
         
         <Link to="/create-recipe">Create Recipe</Link>
-        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">Saved Recipes</Link><button onClick={logout} className='logout-icon'><IoMdLogOut size={20} className='logout-icon'/>
+        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">Saved Recipes</Link><button onClick={logout} className='logout-icon'><IoMdLogOut size={20} />
 </button></>}
        
     </div>

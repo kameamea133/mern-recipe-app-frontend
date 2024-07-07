@@ -5,9 +5,12 @@ import { useCookies } from "react-cookie"
 import Hero from '../../components/Hero'
 import { useDispatch, useSelector } from 'react-redux'
 import { addRecipeToStore } from "../../reducers/recipes"
+import RecipeModal from '../../components/RecipeModal'
 
 const Home = () => {
- 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [cookies] = useCookies(["access_token"]);
   
@@ -76,47 +79,58 @@ const isRecipeSaved = (id) => savedRecipes.includes(id)
   };
   
 
+ 
+ // Fonction pour ouvrir la modal avec la recette sélectionnée
+ const openModal = (recipe) => {
+  setSelectedRecipe(recipe);
+  setIsModalOpen(true);
+  document.body.style.overflow = 'hidden'; // Empêche le défilement de l'arrière-plan
+};
 
+
+// Fonction pour fermer la modal
+const closeModal = () => {
+  setIsModalOpen(false);
+  setSelectedRecipe(null);
+  document.body.style.overflow = 'auto'; // Réactive le défilement de l'arrière-plan
+};
+  
 
 
 
   return (
     <div className='homePageContainer'>
     <Hero />
+    {user && user.username ? (
+      <h3>Welcome <span>{user.username}</span></h3>
+    ) : null}
     <h1 className='titleHomePage'>Recipes</h1>
-    {user && user.username ? (<h3 className='titleHomePage'>{`Welcome ${user.username}`}</h3>) : null}
-    
-      <ul className="recipes-grid">
-        {recipeFromStore.map((recipe) => (
-          <li key={recipe._id} className="recipe-card">
-            <div>
-              <h2>{recipe.name}</h2>
+    <ul className='recipes-grid'>
+      {recipeFromStore.map((recipe) => (
+        <li key={recipe._id} className='recipe-card' onClick={() => openModal(recipe)}>
+          <div>
+            <h2>{recipe.name}</h2>
             <img src={recipe.imageUrl} alt={recipe.name} />
-              <h4>category: {recipe.category}</h4>
-              <p>Cooking Time: {recipe.cookingTime} minutes</p>
-              <button onClick={() => saveRecipe(recipe._id)} disabled={isRecipeSaved(recipe._id)}
+            <h4>category: {recipe.category}</h4>
+            <p>Cooking Time: {recipe.cookingTime} minutes</p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                saveRecipe(recipe._id);
+              }}
+              disabled={isRecipeSaved(recipe._id)}
               className={isRecipeSaved(recipe._id) ? 'button-disabled' : 'button-active'}
-              >
-              {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
-              </button>
-            </div>
-            <div className="instructions">
-              <p>
-                <span>Ingredients:</span>
-                <ul>
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
-              </p>
-              <p>
-                <span>Instructions:</span> <span dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+            >
+              {isRecipeSaved(recipe._id) ? 'Saved' : 'Save'}
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+    {isModalOpen && selectedRecipe && (
+        <RecipeModal recipe={selectedRecipe} onClose={closeModal} /> // Affiche la modal si elle est ouverte
+      )}
+  </div>
   )
 }
 
