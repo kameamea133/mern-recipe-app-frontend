@@ -341,3 +341,34 @@
   font-size: 24px;
   cursor: pointer;
 }
+
+
+
+/******* buttons category ********/
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.category-buttons button {
+  background-color: #A10E14; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  padding: 10px 20px; /* Padding autour du texte */
+  margin: 0 10px; /* Espacement entre les boutons */
+  font-size: 16px; /* Taille de la police */
+  font-weight: bold; /* Texte en gras */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur de la souris */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transition pour le hover */
+}
+
+.category-buttons button:hover {
+  background-color: #870c11; /* Couleur de fond au hover */
+  transform: scale(1.05); /* Légère agrandissement au hover */
+}
+
+.category-buttons button:focus {
+  outline: none; /* Enlever le contour au focus */
+}

@@ -4,13 +4,13 @@ import {useGetUserID} from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
 import Hero from '../../components/Hero'
 import { useDispatch, useSelector } from 'react-redux'
-import { addRecipeToStore } from "../../reducers/recipes"
+import { addRecipeToStore, addStartersToStore, addDishesToStore, addDessertsToStore } from "../../reducers/recipes"
 import RecipeModal from '../../components/RecipeModal'
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [cookies] = useCookies(["access_token"]);
   
@@ -18,6 +18,9 @@ const Home = () => {
 const dispatch = useDispatch()
 const user = useSelector(state => state.users.value)
 const recipeFromStore = useSelector(state => state.recipes.value)
+  const starters = useSelector(state => state.recipes.starters)
+  const dishes = useSelector(state => state.recipes.dishes)
+  const desserts = useSelector(state => state.recipes.desserts)
 
 const isRecipeSaved = (id) => savedRecipes.includes(id)
 
@@ -25,6 +28,7 @@ const isRecipeSaved = (id) => savedRecipes.includes(id)
     const fetchRecipe = async () => {
       try{
         const response = await axios.get('http://localhost:3000/recipes');
+        
         dispatch(addRecipeToStore(response.data));       
       }catch(err) {
         console.log(err)
@@ -79,6 +83,45 @@ const isRecipeSaved = (id) => savedRecipes.includes(id)
   };
   
 
+  const fetchRecipesByCategory = async (category) => {
+    setSelectedCategory(category);
+    try {
+      const url = category === 'all' ? 'http://localhost:3000/recipes' : `http://localhost:3000/recipes/category/${category}`;
+      const response = await axios.get(url);
+     
+      switch(category) {
+        case 'starter':
+          dispatch(addStartersToStore(response.data));
+          
+          break;
+        case 'dish':
+          dispatch(addDishesToStore(response.data));
+          break;
+        case 'dessert':
+          dispatch(addDessertsToStore(response.data));
+          break;
+        default:
+          dispatch(addRecipeToStore(response.data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+
+  const getRecipesToDisplay = () => {
+    switch(selectedCategory) {
+      case 'starter':
+        return starters;
+      case 'dish':
+        return dishes;
+      case 'dessert':
+        return desserts;
+      default:
+        return recipeFromStore;
+    }
+  }
  
  // Fonction pour ouvrir la modal avec la recette sélectionnée
  const openModal = (recipe) => {
@@ -105,8 +148,16 @@ const closeModal = () => {
       <h3>Welcome <span>{user.username}</span></h3>
     ) : null}
     <h1 className='titleHomePage'>Recipes</h1>
+    <div className="category-buttons">
+        <button onClick={() => fetchRecipesByCategory('all')}>All</button>
+        <button onClick={() => fetchRecipesByCategory('starter')}>Starter</button>
+        <button onClick={() => fetchRecipesByCategory('dish')}>Dish</button>
+        <button onClick={() => fetchRecipesByCategory('dessert')}>Dessert</button>
+      </div>
+
+
     <ul className='recipes-grid'>
-      {recipeFromStore.map((recipe) => (
+      {getRecipesToDisplay().map((recipe) => (
         <li key={recipe._id} className='recipe-card' onClick={() => openModal(recipe)}>
           <div>
             <h2>{recipe.name}</h2>
@@ -127,6 +178,9 @@ const closeModal = () => {
         </li>
       ))}
     </ul>
+
+
+
     {isModalOpen && selectedRecipe && (
         <RecipeModal recipe={selectedRecipe} onClose={closeModal} /> // Affiche la modal si elle est ouverte
       )}
