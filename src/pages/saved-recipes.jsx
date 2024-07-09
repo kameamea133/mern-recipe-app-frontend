@@ -50,6 +50,7 @@ const SavedRecipes = () => {
 
   
   // Function to filter recipes by category
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const filterByCategory = (category) => {
     setSelectedCategory(category);
     if (category === 'all') {
@@ -57,7 +58,7 @@ const SavedRecipes = () => {
     } else {
       setFilteredRecipes(savedRecipes.filter(recipe => recipe.category === category && recipe.name.toLowerCase().includes(searchQuery.toLowerCase())));
     }
-  }
+  };
 
   
   // Effect to filter recipes based on search query and selected category
@@ -65,7 +66,7 @@ const SavedRecipes = () => {
     if (searchQuery.length >= 3 || searchQuery === '') {
       filterByCategory(selectedCategory);
     }
-  }, [searchQuery, savedRecipes, selectedCategory]);
+  }, [searchQuery, savedRecipes, selectedCategory, filterByCategory]);
 
   return (
     <div className='savedRecipesPage'>
