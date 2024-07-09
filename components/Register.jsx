@@ -1,16 +1,18 @@
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import axios from "axios"
+import { motion } from "framer-motion" 
+
 const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [startAnimation, setStartAnimation] = useState(false); 
 
     const onSubmit = async (event) => {
         event.preventDefault();
-
-        try{
+        try {
             const response = await axios.post("http://localhost:3000/users/register", {
-                username,
-                password,
+              username: username.trim(),
+              password: password.trim(),
             });
             alert(response.data.message)
             setUsername("")
@@ -20,23 +22,39 @@ const Register = () => {
         }
     }
 
-  return (
-    <div className='auth-container'>
-        <form onSubmit={onSubmit}>
-            <h2>Register</h2>
-            <div className="form-group">
-                <label htmlFor="username">Username: </label>
-                <input type="text" id="username" onChange={(event) => setUsername(event.target.value)} value={username}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password: </label>
-                <input type="password" id="password" onChange={(event) => setPassword(event.target.value)} value={password}/>
-            </div>
+    const FADE_DOWN_ANIMATION_VARIANTS = {
+      hidden: { opacity: 0, y: -10 },
+      show: { opacity: 1, y: 0, transition: { type: "spring" } },
+    };
 
-            <button type='submit'>Register</button>
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setStartAnimation(true); 
+      }, 900);
+      return () => clearTimeout(timer); 
+    }, []);
+
+    return (
+      <motion.div
+        initial="hidden"
+        animate={startAnimation ? "show" : "hidden"} s
+        variants={FADE_DOWN_ANIMATION_VARIANTS} 
+        className='auth-container'
+      >
+        <form onSubmit={onSubmit}>
+          <h2>Register</h2>
+          <div className="form-group">
+            <label htmlFor="username">Username: </label>
+            <input type="text" id="username" onChange={(event) => setUsername(event.target.value)} value={username}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password: </label>
+            <input type="password" id="password" onChange={(event) => setPassword(event.target.value)} value={password}/>
+          </div>
+          <button type='submit' className='auth-button'>Register</button>
         </form>
-    </div>
-  )
+      </motion.div>
+    )
 }
 
 export default Register

@@ -29,7 +29,7 @@ const Hero = () => {
     ><span>SavorySecrets </span>Cook & Share</motion.h1>
     <motion.p
     variants={FADE_DOWN_ANIMATION_VARIANTS}
-    >Your Ultimate Destination to Discover and Share Delicious Recipes</motion.p>
+    >Your Favorite Destination to Discover and Share Delicious Recipes</motion.p>
   </div>
     </motion.div>
   )

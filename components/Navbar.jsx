@@ -23,7 +23,7 @@ const Navbar = () => {
         </Link>
         
         <Link to="/create-recipe">Create Recipe</Link>
-        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">Saved Recipes</Link><button onClick={logout} className='logout-icon'><IoMdLogOut size={20} />
+        {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : <><Link to="/saved-recipes">My Saved Recipes</Link><button onClick={logout} className='logout-icon'><IoMdLogOut size={20} />
 </button></>}
        
     </div>

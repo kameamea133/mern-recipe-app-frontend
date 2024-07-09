@@ -12,8 +12,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 45vh;
+    border-radius: 10px;
     background-color: #f2f2f2;
+    margin: 200px 0px;
   }
   
   .auth-container {
@@ -25,7 +27,7 @@
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    margin: 0px;
     width: 400px;
   }
   
@@ -104,12 +106,20 @@
   }
 
 
+  /****** search Bar ******/
+  .searchBar{
+    width: 50.3%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-left: 35px;
+  }
+
   /******** hero ********/
   .heroContainer {
     width: 100%;
     background-color: pink;
     height: 80vh;
     position: relative;
+    color: white;
 
 
     .overlay{
@@ -138,9 +148,9 @@
       text-shadow: 3px 3px 7px rgba(248, 246, 246, 0.284);
 
       span {
-        color: white;
-        text-shadow: 3px 3px 7px rgba(230, 27, 27, 0.284);
-        font-size: 6rem;
+        
+        text-shadow: 3px 3px 7px rgba(230, 27, 27, 0.584);
+        font-size: 6.5rem;
       }
     }
 
@@ -244,34 +254,43 @@
     .savedRecipes-card{
       background: url("/pattern1.png") no-repeat center center;
       background-size: cover;
-      width: 75%;
+      width: 55%;
       padding: 20px;
       border-radius: 15px;
       border: 1px solid gray;
       position: relative;
       box-shadow: 3px 10px 25px -5px rgba(0,0,0,0.28);
-      
       height: 500px;
       overflow-y: auto;
 
-      img{
-        width: 40%;
-        height: 300px;
-        object-fit: cover;
-        border-bottom-left-radius: 15px;
-        border-top-left-radius: 15px;
-      }
+    
 
-      .delete-icon{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        transition: transform 0.5s ease-in-out; 
-      }
-      .delete-icon:hover{
-        scale: 1.2;
-      }
+        img{
+          width: 40%;
+          height: 300px;
+          object-fit: cover;
+          border-bottom-left-radius: 15px;
+          border-top-left-radius: 15px;
+          box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+  
+        .delete-icon{
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          transition: transform 0.5s ease-in-out; 
+        }
+        .delete-icon:hover{
+          scale: 1.2;
+        }
+     
+        h4 span{
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-decoration: underline;
+        }
+
     }
   }
 }
@@ -349,6 +368,7 @@
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  
 }
 
 .category-buttons button {
@@ -361,6 +381,7 @@
   font-weight: bold; /* Texte en gras */
   border-radius: 5px; /* Coins arrondis */
   cursor: pointer; /* Curseur de la souris */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease, transform 0.3s ease; /* Transition pour le hover */
 }
 
@@ -371,4 +392,286 @@
 
 .category-buttons button:focus {
   outline: none; /* Enlever le contour au focus */
+}
+
+
+
+/***** create recipe component *******/
+/* Ajout de styles pour le composant CreateRecipe */
+.create-recipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+  margin-bottom: 150px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  width: 80%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-recipe-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input, select, .quill-editor {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.ingredient-input {
+  margin-bottom: 10px;
+}
+
+.add-ingredient-button {
+  background-color: #A10E14;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-ingredient-button:hover {
+  background-color: #870c11;
+  transform: scale(1.05);
+}
+
+.create-recipe-button {
+  background-color: #A10E14;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.create-recipe-button:hover {
+  background-color: #870c11;
+  transform: scale(1.05);
+}
+
+
+/***** auth login register components ******/
+/* Ajouté pour les boutons de connexion et d'inscription */
+.auth-button {
+  background-color: #A10E14;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+}
+
+.auth-button:hover {
+  background-color: #870c11;
+  transform: scale(1.05);
+}
+
+/* Ajouté pour les conteneurs de connexion et d'inscription */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  width: 400px;
+}
+
+
+
+
+@media (max-width: 1068px) {
+
+
+  .heroContainer {
+    height: 50vh;
+
+    h1 {
+      font-size: 2.5rem;
+      left: 20px;
+      top: 300px;
+
+      span {
+        font-size: 3rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      left: 20px;
+      top: 400px;
+    }
+
+     img{
+      object-fit: conta;
+    }
+  }
+
+
+
+  .homePageContainer {
+    .titleHomePage {
+      font-size: 2rem;
+      margin-top: 100px;
+    }
+
+    h3 {
+      font-size: 2.5rem;
+      margin-top: 40px;
+    }
+
+    .recipes-grid {
+      .recipe-card {
+        width: 45%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+}
+
+
+
+
+@media (max-width: 480px) {
+ 
+ 
+  .homePageContainer {
+    .titleHomePage {
+      font-size: 1.5rem;
+      margin-top: 50px;
+      
+    }
+
+    h3 {
+      font-size: 2rem;
+      margin-top: 30px;
+    }
+
+    .recipes-grid {
+      .recipe-card {
+        width: 90%;
+        margin-bottom: 10px;
+        
+        h2 {
+          font-size: 1.2rem; /* Ajustement de la taille de la police pour s'adapter à la carte réduite */
+        }
+
+        img {
+          height: 200px; /* Réduction de la hauteur de l'image pour s'adapter à la carte réduite */
+        }
+
+        p {
+          font-size: 1rem; /* Ajustement de la taille de la police pour s'adapter à la carte réduite */
+        }
+
+      }
+    }
+  }
+
+
+
+  .heroContainer {
+      height: 50vh;
+
+    h1 {
+      font-size: 2rem;
+      left: 10px;
+      top: 200px;
+      color: white;
+
+      span {
+        font-size: 2.5rem;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      left: 10px;
+      top: 300px;
+    }
+  }
+
+
+  .savedRecipes-grid {
+    flex-direction: column;
+    align-items: center;
+    .savedRecipes-card {
+      width: 100%;
+      margin-bottom: 10px;
+      height: 50vh;
+      
+      .savedRecipes-content{
+
+        h2 {
+          font-size: 1.2rem; /* Ajustement de la taille de la police pour s'adapter à la carte réduite */
+        }
+  
+        img {
+         width: 90%;
+          height: 200px; /* Réduction de la hauteur de l'image pour s'adapter à la carte réduite */
+        }
+      }
+
+      p {
+        font-size: 1rem; /* Ajustement de la taille de la police pour s'adapter à la carte réduite */
+      }
+
+      .delete-icon {
+        top: 5px; /* Ajustement de la position pour la carte réduite */
+        right: 5px;
+      }
+    }
+  }
+
+
+  .auth {
+    flex-direction: column;
+    margin: 100px 0px;
+    height: auto;
+    padding: 10px 0px;
+    justify-content: start;
+    align-items: stretch; /* Permettre aux composants de prendre toute la largeur */
+  }
+
+  .auth-container {
+    width: 90%; /* Ajustement de la largeur pour les petits écrans */
+    margin: 10px; /* Espacement entre les conteneurs */
+  }
 }

@@ -12,6 +12,8 @@ import CreateRecipe from './pages/create-recipe';
 import SavedRecipe from './pages/saved-recipes';
 import Navbar from '../components/Navbar';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Combinez les reducers
 const reducers = combineReducers({
@@ -48,6 +50,7 @@ function App() {
               <Route path="/saved-recipes" element={<SavedRecipe />}/>
             </Routes>
           </Router>
+          <ToastContainer />
         </div>
       </PersistGate>
     </Provider>
