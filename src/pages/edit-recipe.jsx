@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const EditRecipe = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -18,7 +21,7 @@ const EditRecipe = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/recipes/${id}`, {
+        const response = await axios.get(`${API_URL}/recipes/${id}`, {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
           },
@@ -55,7 +58,7 @@ const EditRecipe = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/recipes/${id}`, recipe, {
+      await axios.put(`${API_URL}/recipes/${id}`, recipe, {
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
         },

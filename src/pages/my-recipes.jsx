@@ -6,6 +6,9 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const MyRecipes = () => {
   const [myRecipes, setMyRecipes] = useState([]);
   const [cookies] = useCookies(["access_token"]);
@@ -15,7 +18,7 @@ const MyRecipes = () => {
   useEffect(() => {
     const fetchMyRecipes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/recipes/userRecipes/${userID}`, {
+        const response = await axios.get(`${API_URL}/recipes/userRecipes/${userID}`, {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`
           }
@@ -31,7 +34,7 @@ const MyRecipes = () => {
 
   const deleteRecipe = async (recipeID) => {
     try {
-      await axios.delete(`http://localhost:3000/recipes/${recipeID}`, {
+      await axios.delete(`${API_URL}/recipes/${recipeID}`, {
         data: { userID },
         headers: {
           Authorization: `Bearer ${cookies.access_token}`

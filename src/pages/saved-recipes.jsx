@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteRecipeFromStore, addSavedRecipesToStore } from "../../reducers/recipes"
 import { useCookies } from "react-cookie";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+
 const SavedRecipes = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]); 
   const [searchQuery, setSearchQuery] = useState(''); 
@@ -20,7 +23,7 @@ const SavedRecipes = () => {
   // Function to delete a recipe by its ID
   const deleteRecipe = useCallback(async (recipeID) => {
     try {
-      await axios.delete(`http://localhost:3000/recipes/${recipeID}`, {
+      await axios.delete(`${API_URL}/recipes/${recipeID}`, {
         data: { userID },
         headers: {
           Authorization: `Bearer ${cookies.access_token}`
@@ -37,7 +40,7 @@ const SavedRecipes = () => {
   useEffect(() => {
     const fetchSavedRecipe = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/recipes/savedRecipes/${userID}`)
+        const response = await axios.get(`${API_URL}/recipes/savedRecipes/${userID}`)
         dispatch(addSavedRecipesToStore(response.data.savedRecipes));
         setFilteredRecipes(response.data.savedRecipes); 
       } catch (err) {

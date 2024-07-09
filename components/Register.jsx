@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import axios from "axios"
 import { motion } from "framer-motion" 
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -10,7 +12,7 @@ const Register = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/users/register", {
+            const response = await axios.post(`${API_URL}/users/register`, {
               username: username.trim(),
               password: password.trim(),
             });
