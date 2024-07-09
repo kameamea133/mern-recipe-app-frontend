@@ -7,15 +7,17 @@ import { deleteRecipeFromStore, addSavedRecipesToStore } from "../../reducers/re
 import { useCookies } from "react-cookie";
 
 const SavedRecipes = () => {
-  const [filteredRecipes, setFilteredRecipes] = useState([]); // Ajouté pour les recettes filtrées
-  const [searchQuery, setSearchQuery] = useState(''); // Ajouté pour la recherche
-  const [selectedCategory, setSelectedCategory] = useState('all'); // Ajouté pour les catégories
+  const [filteredRecipes, setFilteredRecipes] = useState([]); 
+  const [searchQuery, setSearchQuery] = useState(''); 
+  const [selectedCategory, setSelectedCategory] = useState('all'); 
 
   const dispatch = useDispatch();
   const userID = useGetUserID()
   const [cookies] = useCookies(["access_token"]);
-  const savedRecipes = useSelector(state => state.recipes.saved); // Utilisation de useSelector pour les recettes sauvegardées
+  const savedRecipes = useSelector(state => state.recipes.saved); 
 
+
+  // Function to delete a recipe by its ID
   const deleteRecipe = useCallback(async (recipeID) => {
     try {
       await axios.delete(`http://localhost:3000/recipes/${recipeID}`, {
@@ -30,12 +32,14 @@ const SavedRecipes = () => {
     }
   }, [dispatch, userID, cookies.access_token]);
  
+
+  // Effect to fetch saved recipes when component mounts
   useEffect(() => {
     const fetchSavedRecipe = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/recipes/savedRecipes/${userID}`)
         dispatch(addSavedRecipesToStore(response.data.savedRecipes));
-        setFilteredRecipes(response.data.savedRecipes); // Initialisation des recettes filtrées
+        setFilteredRecipes(response.data.savedRecipes); 
       } catch (err) {
         console.log(err);
       }
@@ -44,7 +48,8 @@ const SavedRecipes = () => {
     fetchSavedRecipe()
   }, [userID, dispatch]);
 
-  // Filtrage par catégorie
+  
+  // Function to filter recipes by category
   const filterByCategory = (category) => {
     setSelectedCategory(category);
     if (category === 'all') {
@@ -54,7 +59,8 @@ const SavedRecipes = () => {
     }
   }
 
-  // Filtrage par recherche
+  
+  // Effect to filter recipes based on search query and selected category
   useEffect(() => {
     if (searchQuery.length >= 3 || searchQuery === '') {
       filterByCategory(selectedCategory);
@@ -63,7 +69,7 @@ const SavedRecipes = () => {
 
   return (
     <div className='savedRecipesPage'>
-      <h1>Saved Recipes</h1>
+      <h1>My Saved Recipes</h1>
 
       <div className="category-buttons">
         <button onClick={() => filterByCategory('all')}>All</button>
@@ -77,7 +83,7 @@ const SavedRecipes = () => {
         placeholder="Search for recipes..."
         value={searchQuery}
         className='searchBar'
-        onChange={(e) => setSearchQuery(e.target.value)} // Mise à jour de la requête de recherche
+        onChange={(e) => setSearchQuery(e.target.value)} 
       />
 
       <ul className='savedRecipes-grid'>

@@ -4,17 +4,19 @@ import {useCookies} from 'react-cookie'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addUserToStore } from '../reducers/users'
-import { motion } from "framer-motion" // Ajouté pour les animations
+import { motion } from "framer-motion" 
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [startAnimation, setStartAnimation] = useState(false); // Ajouté pour gérer le déclenchement des animations
+    const [startAnimation, setStartAnimation] = useState(false); 
 
     const dispatch = useDispatch()
     const [_, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
 
+
+    // Function to handle form submission for login
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -46,18 +48,20 @@ const Login = () => {
       show: { opacity: 1, y: 0, transition: { type: "spring" } },
     };
 
+
+    // Effect to start the animation after a delay
     useEffect(() => {
       const timer = setTimeout(() => {
-        setStartAnimation(true); // Déclenchement des animations après 2 secondes
+        setStartAnimation(true); 
       }, 700);
-      return () => clearTimeout(timer); // Nettoyage du timer
+      return () => clearTimeout(timer); 
     }, []);
 
     return (
       <motion.div
         initial="hidden"
-        animate={startAnimation ? "show" : "hidden"} // Déclenchement conditionnel des animations
-        variants={FADE_DOWN_ANIMATION_VARIANTS} // Ajouté pour les animations
+        animate={startAnimation ? "show" : "hidden"} 
+        variants={FADE_DOWN_ANIMATION_VARIANTS} 
         className='auth-container'
       >
         <form onSubmit={onSubmit}>

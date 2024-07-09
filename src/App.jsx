@@ -9,31 +9,33 @@ import  recipes from "../reducers/recipes";
 import Home from './pages/home';
 import Auth from './pages/auth';
 import CreateRecipe from './pages/create-recipe';
+import MyRecipes from './pages/my-recipes';
 import SavedRecipe from './pages/saved-recipes';
+import EditRecipe from './pages/edit-recipe';
 import Navbar from '../components/Navbar';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Combinez les reducers
+
 const reducers = combineReducers({
   users,
   recipes
 });
 
-// Configuration de la persistance
+
 const persistConfig = { key: 'recipeApp', storage };
 
-// Créez un reducer persistant
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-// Configurez le store
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-// Configurez le persistor pour gérer la persistance du store
+
 const persistor = persistStore(store);
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
               <Route path="/auth" element={<Auth />}/>
               <Route path="/create-recipe" element={<CreateRecipe />}/>
               <Route path="/saved-recipes" element={<SavedRecipe />}/>
+              <Route path="/my-recipes" element={<MyRecipes />}/>
+              <Route path="/edit-recipe/:id" element={<EditRecipe />}/>
             </Routes>
           </Router>
           <ToastContainer />

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Reducer pour les recettes générales
+
 const initialState = {
     value: [],
-    starters: [], // État pour les recettes de type "starter"
-    dishes: [], // État pour les recettes de type "dish"
-    desserts: [], // État pour les recettes de type "dessert"
-    saved: [] // Ajouté pour les recettes sauvegardées
+    starters: [],
+    dishes: [],
+    desserts: [], 
+    saved: [] 
 }
 
 export const recipesSlice = createSlice({
@@ -18,9 +18,9 @@ export const recipesSlice = createSlice({
         },
         deleteRecipeFromStore: (state, action) => {
             state.value = state.value.filter(recipe => recipe._id !== action.payload);
-            state.saved = state.saved.filter(recipe => recipe._id !== action.payload); // Suppression dans les recettes sauvegardées
+            state.saved = state.saved.filter(recipe => recipe._id !== action.payload); 
         },
-        // Actions pour ajouter des recettes par catégorie
+       
         addStartersToStore: (state, action) => {
             state.starters = action.payload;
         },
@@ -30,7 +30,7 @@ export const recipesSlice = createSlice({
         addDessertsToStore: (state, action) => {
             state.desserts = action.payload;
         },
-        addSavedRecipesToStore: (state, action) => { // Ajouté pour les recettes sauvegardées
+        addSavedRecipesToStore: (state, action) => { 
             state.saved = action.payload;
         }
     }
@@ -38,10 +38,6 @@ export const recipesSlice = createSlice({
 
 
 
-
-// Export des actions
 export const { addRecipeToStore, deleteRecipeFromStore, addStartersToStore, addDishesToStore, addDessertsToStore,  addSavedRecipesToStore } = recipesSlice.actions;
 
-
-// Export des reducers
 export default recipesSlice.reducer;

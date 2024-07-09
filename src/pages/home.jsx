@@ -70,7 +70,7 @@ const Home = () => {
   // Save a recipe to the user's saved recipes
   const saveRecipe = async (recipeID) => {
     if (!cookies.access_token) {
-      // Show toast notification if the user is not logged in
+      
       toast.error('You need to be connected to save a recipe');
       return;
     }

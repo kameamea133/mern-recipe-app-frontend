@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
-import { MdClose } from 'react-icons/md'; // Importation de l'icône de fermeture
-
+import { MdClose } from 'react-icons/md'; 
 const RecipeModal = ({ recipe, onClose }) => {
+
+
+   // Function to handle clicks on the overlay to close the modal
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -12,7 +14,7 @@ const RecipeModal = ({ recipe, onClose }) => {
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
         <span className="close-button" onClick={onClose}>
-          <MdClose size={24} /> {/* Ajout de l'icône de fermeture */}
+          <MdClose size={24} />
         </span>
         <h2>{recipe.name}</h2>
         <img src={recipe.imageUrl} alt={recipe.name} />
