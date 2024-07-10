@@ -18,7 +18,7 @@ const MyRecipes = () => {
   useEffect(() => {
     const fetchMyRecipes = async () => {
       try {
-        const response = await axios.get(`${API_URL}/recipes/userRecipes/${userID}`, {
+        const response = await axios.get(`https://mern-recipe-app-backend-theta.vercel.app/recipes/userRecipes/${userID}`, {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`
           }

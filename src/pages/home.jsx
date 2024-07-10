@@ -9,7 +9,7 @@ import { useGetUserID } from "../hooks/useGetUserID"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,14 +26,14 @@ const Home = () => {
   const starters = useSelector(state => state.recipes.starters)
   const dishes = useSelector(state => state.recipes.dishes)
   const desserts = useSelector(state => state.recipes.desserts)
-
+  
    const isRecipeSaved = (id) => savedRecipes.includes(id)
 
   // Fetch all recipes and user data when the component mounts
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${API_URL}/recipes`);
+        const response = await axios.get(`https://mern-recipe-app-backend-theta.vercel.app/recipes`);
         dispatch(addRecipeToStore(response.data));       
       } catch (err) {
         console.log(err)
@@ -43,7 +43,7 @@ const Home = () => {
     // Fetch saved recipes for the logged-in user
     const fetchSavedRecipe = async () => {
       try {
-        const response = await axios.get(`${API_URL}/recipes/savedRecipes/ids/${userID}`)
+        const response = await axios.get(`https://mern-recipe-app-backend-theta.vercel.app/recipes/savedRecipes/ids/${userID}`)
         setSavedRecipes(response.data.savedRecipes || []);
       } catch (err) {
         console.log(err)
@@ -53,7 +53,7 @@ const Home = () => {
     // Fetch user data
     const fetchUsers = async () => {
       try {
-        await axios(`${API_URL}/users`);
+        await axios(`https://mern-recipe-app-backend-theta.vercel.app/users`);
       } catch (err) {
         console.log(err)
       }
@@ -76,7 +76,7 @@ const Home = () => {
     }
     try {
       const response = await axios.put(
-        `${API_URL}/recipes`,
+        `https://mern-recipe-app-backend-theta.vercel.app/recipes`,
         { recipeID, userID },
         {
           headers: {
@@ -94,7 +94,7 @@ const Home = () => {
   const fetchRecipesByCategory = async (category) => {
     setSelectedCategory(category);
     try {
-      const url = category === 'all' ? `${API_URL}/recipes` : `${API_URL}/recipes/category/${category}`;
+      const url = category === 'all' ? `https://mern-recipe-app-backend-theta.vercel.app/recipes` : `https://mern-recipe-app-backend-theta.vercel.app/recipes/category/${category}`;
       const response = await axios.get(url);
       switch(category) {
         case 'starter':
@@ -132,7 +132,7 @@ const Home = () => {
   const fetchRecipesBySearch = async (query) => {
     if (query.length < 3) return; 
     try {
-      const response = await axios.get(`${API_URL}/recipes/search/${query}`);
+      const response = await axios.get(`https://mern-recipe-app-backend-theta.vercel.app/recipes/search/${query}`);
       dispatch(addRecipeToStore(response.data));
     } catch (err) {
       console.log(err);
@@ -161,6 +161,9 @@ const Home = () => {
       fetchRecipesByCategory('all'); 
     }
   }, [searchQuery]);
+
+
+  
 
   return (
     <div className='homePageContainer'>

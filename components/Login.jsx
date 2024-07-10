@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { addUserToStore } from '../reducers/users'
 import { motion } from "framer-motion" 
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -22,7 +22,7 @@ const Login = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await axios.post(`${API_URL}/users/login`, {
+          const response = await axios.post(`https://mern-recipe-app-backend-theta.vercel.app/users/login`, {
             username: username.trim(), 
             password: password.trim(),
           });

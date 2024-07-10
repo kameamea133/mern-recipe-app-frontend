@@ -8,7 +8,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 const EditRecipe = () => {
   const { id } = useParams();
@@ -21,7 +21,7 @@ const EditRecipe = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${API_URL}/recipes/${id}`, {
+        const response = await axios.get(`https://mern-recipe-app-backend-theta.vercel.app/recipes/${id}`, {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
           },
@@ -58,7 +58,7 @@ const EditRecipe = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`${API_URL}/recipes/${id}`, recipe, {
+      await axios.put(`https://mern-recipe-app-backend-theta.vercel.app/recipes/${id}`, recipe, {
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
         },

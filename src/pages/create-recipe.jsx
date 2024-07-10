@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 const CreateRecipe = () => {
   const [cookies] = useCookies(["access_token"])
@@ -62,7 +62,7 @@ const CreateRecipe = () => {
       return;
     }
     try {
-      await axios.post(`${API_URL}/recipes`, recipe, { headers: { authorization: `Bearer ${cookies.access_token}` } });
+      await axios.post(`https://mern-recipe-app-backend-theta.vercel.app/recipes`, recipe, { headers: { authorization: `Bearer ${cookies.access_token}` } });
       // Show toast notification on successful recipe creation
       toast.success('Recipe Created');
       navigate('/')
