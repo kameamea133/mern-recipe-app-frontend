@@ -32,13 +32,17 @@ const Navbar = () => {
     <div className={`nav-links ${isOpen ? 'open' : ''}`}> 
       <Link to="/create-recipe">Create Recipe</Link>
       {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : (
-        <>
+        <div className='nav-links-inside'>
           <Link to="/saved-recipes">My Saved Recipes</Link>
           <Link to="/my-recipes">My Recipes</Link>
-          <button onClick={logout} className='logout-icon'><IoMdLogOut size={20} /></button>
-        </>
+          
+    <button onClick={logout} className='logout-icon'><IoMdLogOut size={20} /></button>
+    
+        </div>
+        
       )}
     </div>
+    
     <div className='menu-icon' onClick={toggleMenu}>
       {isOpen ? <FaTimes size={30} /> : <FaBars size={30} />} 
     </div>
