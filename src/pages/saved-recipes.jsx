@@ -72,7 +72,7 @@ const SavedRecipes = () => {
   }, [searchQuery, savedRecipes, selectedCategory, filterByCategory]);
 
   return (
-    <div className='savedRecipesPage'>
+    <div className='myRecipesPage'>
       <h1>My Saved Recipes</h1>
 
       <div className="category-buttons">
@@ -90,10 +90,10 @@ const SavedRecipes = () => {
         onChange={(e) => setSearchQuery(e.target.value)} 
       />
 
-      <ul className='savedRecipes-grid'>
+      <ul className='myRecipes-grid'>
         {filteredRecipes.map((recipe) => (
-          <li key={recipe._id} className='savedRecipes-card'>
-            <div className='savedRecipes-content'>
+          <li key={recipe._id} className='myRecipes-card'>
+            <div className='myRecipes-content'>
               <img src={recipe.imageUrl} alt={recipe.name} />
               <h2>{recipe.name}</h2>
               <h4>Category: <span>{recipe.category}</span></h4>
