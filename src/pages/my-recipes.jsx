@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 const MyRecipes = () => {
   const [myRecipes, setMyRecipes] = useState([]);
@@ -34,7 +34,7 @@ const MyRecipes = () => {
 
   const deleteRecipe = async (recipeID) => {
     try {
-      await axios.delete(`${API_URL}/recipes/${recipeID}`, {
+      await axios.delete(`https://mern-recipe-app-backend-theta.vercel.app/recipes/${recipeID}`, {
         data: { userID },
         headers: {
           Authorization: `Bearer ${cookies.access_token}`
@@ -63,19 +63,19 @@ const MyRecipes = () => {
               <h2>{recipe.name}</h2>
               <h4>Category: <span>{recipe.category}</span></h4>
               <div className='iconsBox'>
-              <MdEdit className='edit-icon' onClick={() => editRecipe(recipe._id)} size={30} />
-              <MdDelete className='delete-icon' onClick={() => deleteRecipe(recipe._id)} size={30} />
+                <MdEdit className='edit-icon' onClick={() => editRecipe(recipe._id)} size={30} />
+                <MdDelete className='delete-icon' onClick={() => deleteRecipe(recipe._id)} size={30} />
               </div>
             </div>
             <div className="instructions">
-              <p>
+              <div>
                 <span>Ingredients:</span>
                 <ul>
                   {recipe.ingredients.map((ingredient, index) => (
                     <li key={index}>{ingredient}</li>
                   ))}
                 </ul>
-              </p>
+              </div>
               <p>
                 <span>Instructions:</span> <span dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
               </p>
