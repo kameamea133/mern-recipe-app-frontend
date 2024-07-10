@@ -29,7 +29,7 @@ const Navbar = () => {
     <Link to="/">
       <img src="/logoRecipe.png" alt="logo" className='logo'/>
     </Link>
-    <div className={`nav-links ${isOpen ? 'open' : ''}`}> {/* Ajout de la classe open */}
+    <div className={`nav-links ${isOpen ? 'open' : ''}`}> 
       <Link to="/create-recipe">Create Recipe</Link>
       {!cookies.access_token ? ( <Link to="/auth">Login/Register</Link>) : (
         <>
@@ -40,7 +40,7 @@ const Navbar = () => {
       )}
     </div>
     <div className='menu-icon' onClick={toggleMenu}>
-      {isOpen ? <FaTimes size={30} /> : <FaBars size={30} />} {/* Affichage des icônes */}
+      {isOpen ? <FaTimes size={30} /> : <FaBars size={30} />} 
     </div>
   </div>
   )
