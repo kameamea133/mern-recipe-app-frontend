@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useCookies} from "react-cookie"
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../reducers/users'
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
 
    // Function to handle user logout
@@ -18,10 +19,12 @@ const Navbar = () => {
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
     dispatch(logoutUser());
+    navigate("/auth");
   }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+   
   }
 
   return (

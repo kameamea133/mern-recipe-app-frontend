@@ -605,7 +605,7 @@ input, select, .quill-editor {
     .myRecipes-card {
       background: url("/pattern1.png") no-repeat center center;
       background-size: cover;
-      width: 55%;
+      width: 65%;
       padding: 20px;
       border-radius: 15px;
       border: 1px solid gray;
